@@ -1,2 +1,1 @@
-# LegoMindstorm
-Projects involving Lego Mindstorm robots. 
+Projects involving Lego Mindstorm robots.
