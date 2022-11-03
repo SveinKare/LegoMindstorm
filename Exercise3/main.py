@@ -1,4 +1,6 @@
 #!/usr/bin/env pybricks-micropython
+#This robot is a simple line following robot. If the colour sensor detects black, it turns towards the sensor that picked it up. 
+#It stops every 10 seconds and does a random text-to-speech joke out of 4 possible. 
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
                                  InfraredSensor, UltrasonicSensor, GyroSensor)
@@ -9,12 +11,6 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 import time
 import random
 
-
-# This program requires LEGO EV3 MicroPython v2.0 or higher.
-# Click "Open user guide" on the EV3 extension tab for more information.
-
-
-# Create your objects here.
 ev3 = EV3Brick()
 høyreSensor = ColorSensor(Port.S1)
 venstreSensor = ColorSensor(Port.S2)
@@ -22,7 +18,7 @@ ultSensor = UltrasonicSensor(Port.S3)
 hMotor = Motor(Port.A)
 vMotor = Motor(Port.B)
 base = DriveBase(vMotor, hMotor, 56, 70)
-# Write your program here.
+
 lastTime = time.time()
 red = 14
 green = 14
@@ -37,7 +33,7 @@ ev3.speaker.set_volume(100, which='_all_')
 run = True
 while run:
     base.drive(150, 0)
-    #Kjører i 10 sekund
+    #Drives for 10 seconds
     while True:
         (hRed, hGreen, hBlue) = høyreSensor.rgb()
         if hRed < red or hGreen < green or hBlue < blue:
@@ -47,14 +43,14 @@ while run:
         if vRed < red or vGreen < green or vBlue < blue:
             base.turn(-10)
             base.drive(150,0)
-        #Sjekker etter hindringer med ultralydsensor
+        #Checks for obstacles with ultrasonic sensor
         if ultSensor.distance() < 100:
             run = False
             break
         currentTime = time.time()
         if currentTime - lastTime >= 10:
             break
-    #"Underholdning"
+    #"Entertains" the audience with poor jokes
     base.stop()
     if run:
         ev3.speaker.say(jokes[random.randint(0,3)])
