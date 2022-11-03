@@ -1,4 +1,5 @@
 #!/usr/bin/env pybricks-micropython
+#This is a "lawn mower" robot. It drives in a straight line until it bumps into something, then it reverses and turns slightly before continuing.
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
                                  InfraredSensor, UltrasonicSensor, GyroSensor)
@@ -8,11 +9,6 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
 
-# This program requires LEGO EV3 MicroPython v2.0 or higher.
-# Click "Open user guide" on the EV3 extension tab for more information.
-
-
-# Create your objects here.
 ev3 = EV3Brick()
 motor1 = Motor(Port.A)
 motor2 = Motor(Port.B)
@@ -20,8 +16,6 @@ avPå = TouchSensor(Port.S1)
 bumpSensor = TouchSensor(Port.S2)
 driveBase = DriveBase(motor1, motor2, 56, 100)
 
-
-# Write your program here.
 while not avPå.pressed():
     continue
 ev3.speaker.set_volume(100, which='_all_')
